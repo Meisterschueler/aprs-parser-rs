@@ -1,8 +1,8 @@
 use std::str::FromStr;
 
-use AprsError;
-use AprsPosition;
-use Callsign;
+use crate::AprsError;
+use crate::AprsPosition;
+use crate::Callsign;
 
 #[derive(PartialEq, Debug, Clone)]
 pub struct AprsMessage {
@@ -72,7 +72,7 @@ pub enum AprsData {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use Timestamp;
+    use crate::Timestamp;
 
     #[test]
     fn parse() {

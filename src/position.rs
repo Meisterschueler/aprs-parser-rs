@@ -1,9 +1,9 @@
 use std::str::FromStr;
 
-use lonlat::{Latitude, Longitude};
-use AprsError;
-use DataExtension;
-use Timestamp;
+use crate::lonlat::{Latitude, Longitude};
+use crate::AprsError;
+use crate::DataExtension;
+use crate::Timestamp;
 
 #[derive(PartialEq, Debug, Clone)]
 pub struct AprsPosition {

@@ -2,6 +2,7 @@
 name = "aprs-parser"
 version = "0.1.1"
 authors = ["Tobias Bieniek <tobias.bieniek@gmail.com>"]
+edition = "2021"
 description = "APRS message parser for Rust"
 readme = "README.md"
 keywords = ["aprs", "parser", "ogn"]

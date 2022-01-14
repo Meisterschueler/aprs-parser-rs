@@ -1,6 +1,6 @@
 use std::ops::Deref;
 use std::str::FromStr;
-use AprsError;
+use crate::AprsError;
 
 #[derive(Debug, Copy, Clone, PartialOrd, PartialEq, Default)]
 pub struct Latitude(f32);

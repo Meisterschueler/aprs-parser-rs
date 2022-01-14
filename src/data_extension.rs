@@ -1,6 +1,6 @@
 use std::str::FromStr;
 
-use AprsError;
+use crate::AprsError;
 
 #[derive(Eq, PartialEq, Debug, Clone)]
 pub enum DataExtension {
