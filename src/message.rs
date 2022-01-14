@@ -16,12 +16,14 @@ impl FromStr for AprsMessage {
     type Err = AprsError;
 
     fn from_str(s: &str) -> Result<Self, <Self as FromStr>::Err> {
+        // split message into header and body
         let header_delimiter = s
             .find(':')
             .ok_or_else(|| AprsError::InvalidMessage(s.to_owned()))?;
         let (header, rest) = s.split_at(header_delimiter);
         let body = &rest[1..];
 
+        // parse header
         let from_delimiter = header
             .find('>')
             .ok_or_else(|| AprsError::InvalidMessage(s.to_owned()))?;
@@ -41,16 +43,23 @@ impl FromStr for AprsMessage {
             via.push(Callsign::from_str(v)?);
         }
 
-        let data = AprsPosition::from_str(body)
-            .map(AprsData::Position)
-            .unwrap_or(AprsData::Unknown);
+        // parse body
+        if let Some(message_type) = body.chars().next() {
+            let body = &body[1..];
+            let data = match message_type {
+                '/' => AprsData::Position(AprsPosition::from_str(body)?),
+                _   => AprsData::Unknown
+            };
 
-        Ok(AprsMessage {
-            from,
-            to,
-            via,
-            data,
-        })
+            Ok(AprsMessage {
+                from,
+                to,
+                via,
+                data,
+            })
+        } else {
+            Err(AprsError::InvalidMessage(s.to_owned()))
+        }
     }
 }
 
