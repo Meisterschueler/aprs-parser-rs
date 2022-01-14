@@ -21,5 +21,7 @@ pub enum AprsError {
     #[error("Invalid Course: {0}")]
     InvalidCourse(String),
     #[error("Invalid Data Extension: {0}")]
-    InvalidDataExtension(String)
+    InvalidDataExtension(String),
+    #[error("Invalid Status: {0}")]
+    InvalidStatus(String),
 }

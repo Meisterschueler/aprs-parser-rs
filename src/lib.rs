@@ -69,6 +69,7 @@ mod error;
 mod lonlat;
 mod message;
 mod position;
+mod status;
 mod timestamp;
 
 use std::str::FromStr;
@@ -79,6 +80,7 @@ pub use error::AprsError;
 pub use lonlat::{Latitude, Longitude};
 pub use message::{AprsData, AprsMessage};
 pub use position::AprsPosition;
+pub use status::AprsStatus;
 pub use timestamp::Timestamp;
 
 pub fn parse(s: &str) -> Result<AprsMessage, AprsError> {

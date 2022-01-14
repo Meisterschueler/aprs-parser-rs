@@ -46,7 +46,11 @@ impl FromStr for AprsPosition {
             None
         };
 
-        let comment = &s[26..s.len()];
+        let comment = if data_extension != None {
+            &s[33..s.len()]
+        } else {
+            &s[26..s.len()]
+        };
 
         Ok(AprsPosition {
             timestamp,
@@ -74,7 +78,8 @@ mod tests {
         assert_relative_eq!(*result.longitude, 12.408166);
         assert_eq!(result.symbol_table, '\\');
         assert_eq!(result.symbol_code, '^');
-        assert_eq!(result.comment, "322/103/A=003054");
+        assert_eq!(result.data_extension, Some(DataExtension::CourseSpeed(322, 103)));
+        assert_eq!(result.comment, "/A=003054");
     }
 
     #[test]
