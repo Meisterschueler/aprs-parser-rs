@@ -2,6 +2,7 @@ use std::str::FromStr;
 
 use lonlat::{Latitude, Longitude};
 use AprsError;
+use DataExtension;
 use Timestamp;
 
 #[derive(PartialEq, Debug, Clone)]
@@ -11,6 +12,7 @@ pub struct AprsPosition {
     pub longitude: Longitude,
     pub symbol_table: char,
     pub symbol_code: char,
+    pub data_extension: Option<DataExtension>,
     pub comment: String,
 }
 
@@ -37,6 +39,13 @@ impl FromStr for AprsPosition {
         }
         let symbol_code = s.chars().nth(25).unwrap();
 
+        // get possible data_extension
+        let data_extension = if s.len() >= 32 {
+            (&s[26..33]).parse().ok()
+        } else {
+            None
+        };
+
         let comment = &s[26..s.len()];
 
         Ok(AprsPosition {
@@ -45,6 +54,7 @@ impl FromStr for AprsPosition {
             longitude,
             symbol_table,
             symbol_code,
+            data_extension,
             comment: comment.to_owned(),
         })
     }
