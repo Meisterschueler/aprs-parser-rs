@@ -50,7 +50,7 @@ impl FromStr for AprsMessage {
             let data = match message_type {
                 '/' => AprsData::Position(AprsPosition::from_str(body)?),
                 '>' => AprsData::Status(AprsStatus::from_str(body)?),
-                _   => AprsData::Unknown
+                _ => AprsData::Unknown,
             };
 
             Ok(AprsMessage {
@@ -97,10 +97,14 @@ mod tests {
                 assert_relative_eq!(*position.longitude, 12.408166);
                 assert_eq!(position.symbol_table, '\\');
                 assert_eq!(position.symbol_code, '^');
-                assert_eq!(position.data_extension, Some(DataExtension::CourseSpeed(322, 103)));
+                assert_eq!(
+                    position.data_extension,
+                    Some(DataExtension::CourseSpeed(322, 103))
+                );
+                assert_eq!(position.altitude, Some(3054));
                 assert_eq!(
                     position.comment,
-                    "/A=003054 !W09! id213D17F2 -039fpm +0.0rot 2.5dB 3e -0.0kHz gps1x1"
+                    " !W09! id213D17F2 -039fpm +0.0rot 2.5dB 3e -0.0kHz gps1x1"
                 );
             }
             _ => panic!("Unexpected data type"),
@@ -116,7 +120,11 @@ mod tests {
         assert_eq!(result.to, Callsign::new("APRS", None));
         assert_eq!(
             result.via,
-            vec![Callsign::new("TCPIP*", None), Callsign::new("qAC", None), Callsign::new("GLIDERN3", None),]
+            vec![
+                Callsign::new("TCPIP*", None),
+                Callsign::new("qAC", None),
+                Callsign::new("GLIDERN3", None),
+            ]
         );
 
         match result.data {
