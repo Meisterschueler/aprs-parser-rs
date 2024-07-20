@@ -86,3 +86,9 @@ pub use timestamp::Timestamp;
 pub fn parse(s: &str) -> Result<AprsPacket, AprsError> {
     AprsPacket::from_str(s)
 }
+
+pub fn parse_to_json(s: &str) -> Result<String, AprsError> {
+    let packet = parse(s)?;
+    let json_message = serde_json::to_string(&packet).unwrap();
+    Ok(json_message)
+}

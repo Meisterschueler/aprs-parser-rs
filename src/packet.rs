@@ -1,3 +1,4 @@
+use serde::Serialize;
 use std::fmt::Write;
 use std::str::FromStr;
 
@@ -8,7 +9,7 @@ use crate::AprsStatus;
 use crate::Callsign;
 use crate::EncodeError;
 
-#[derive(PartialEq, Debug, Clone)]
+#[derive(PartialEq, Debug, Clone, Serialize)]
 pub struct AprsPacket {
     pub from: Callsign,
     pub to: Callsign,
@@ -72,7 +73,7 @@ impl AprsPacket {
     }
 }
 
-#[derive(PartialEq, Debug, Clone)]
+#[derive(PartialEq, Debug, Clone, Serialize)]
 pub enum AprsData {
     Position(AprsPosition),
     Message(AprsMessage),

@@ -1,11 +1,11 @@
 use std::fmt::{Display, Formatter};
 use std::str::FromStr;
 
-use serde::{Deserialize, Serialize};
+use serde::Serialize;
 
 use crate::AprsError;
 
-#[derive(Eq, PartialEq, Debug, Clone, Serialize, Deserialize)]
+#[derive(Eq, PartialEq, Debug, Clone, Serialize)]
 pub struct Callsign {
     pub call: String,
     pub ssid: Option<u8>,
